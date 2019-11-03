@@ -32,9 +32,9 @@ def input_to_index(user_input)
 end
 
 
-def move(board, input, current_player(board))
-   display_board(board)
- end
+def move(board, index, player)
+  board[index]=player
+    end
 
 
 def position_taken?(board, index)
@@ -70,7 +70,7 @@ end
 
 
 def won?(board)
- WIN_COMBINATIONS.each do |win_combination|
+ WIN_COMBINATIONS.detect do |win_combination|
    win_index_1 = win_combination[0]
    win_index_2 = win_combination[1]
    win_index_3 = win_combination[2]
@@ -88,14 +88,9 @@ end
 
 
 def draw?(board)
-   if !won?(board) && full?(board)
-     return true
-   elsif !won?(board) && !full?(board)
-     return false
-   else won?(board)
-     return false
+   !won?(board) && full?(board)
+
    end
-end
 
 
 def over?(board)
@@ -111,9 +106,11 @@ def turn(board)
    index = input_to_index(user_input)
    if valid_move?(board, index)
       move(board, index, current_player(board))
+      display_board(board)
+    else
       turn(board)
+
    end
-   display_board(board)
 end
 
 
@@ -125,5 +122,13 @@ end
 
 
 def play(board)
-   input = gets
+   while !over?(board)
+     turn(board)
+
+   end
+if won?(board)
+  puts "Congratulations #{winner(board)}!"
+else draw?(board)
+  puts "Cat's Game!"
+  end
 end
