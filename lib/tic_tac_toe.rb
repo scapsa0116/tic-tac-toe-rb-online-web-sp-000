@@ -32,9 +32,15 @@ def input_to_index(user_input)
 end
 
 
+<<<<<<< HEAD
 def move(board, index, player)
   board[index]=player
     end
+=======
+def move(board, index, player = "X")
+   display_board(board)
+ end
+>>>>>>> a9db8933316bbaf596bcdb19959324c40154d37a
 
 
 def position_taken?(board, index)
